@@ -10,10 +10,10 @@ interface SearchCompProps {
 const SearchComp: React.FC<SearchCompProps> = ({ handleSearch, placeholder }) => {
   
   return (
-    <div style={{width:"40%"}} className="search">
+    <div className="search w-full sm:w-[40%]">
         <label  className="block mb-2">Search</label>
         <input
-            className="shadow appearance-none border rounded leading-tight focus:outline-none focus:shadow-outline flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static   lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30"
+            className="h-[55px] px-4 w-full outline-none  appearance-none  rounded-xl border border-gray-300 dark:border-neutral-800 bg-transparent"
             onChange={(e) => handleSearch(e.target.value)}
             type="text"
             placeholder={placeholder || "Search..."}

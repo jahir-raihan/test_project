@@ -16,7 +16,11 @@ const ButtonComp: React.FC<ButtonCompProps> = ({
   
 }) => {
   return (
-    <button onClick={execute_function} className="btn-gradient-primary filter-button" style={{marginTop:'2em', height:'40px', display:"flex", alignItems:"center", justifyContent:"center", gap:'.3em'}}>
+    <button 
+      onClick={execute_function} 
+      className=" border h-[55px] rounded-xl  w-[200px] border-gray-300 dark:border-neutral-800 bg-slate-800"
+      style={{marginTop:'2em', display:"flex", alignItems:"center", justifyContent:"center", gap:'.3em'}}
+      >
         <i className={icon_class}></i> {buttonName}
     </button>
   );
