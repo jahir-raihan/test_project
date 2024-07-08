@@ -90,7 +90,7 @@ export default function Home() {
       
       <div className="title-and-creat flex justify-between items-center">
         <h5 style={{marginTop:"2em"}}>Blogs</h5>
-        <Link href="/create-blog">
+        <Link href="/blog/create-blog">
           <ButtonComp buttonName="Create" icon_class="fas fa-plus" execute_function={() => {}} />
         </Link>
       </div>
@@ -139,7 +139,7 @@ export default function Home() {
                     <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
 
                       <div className="flex gap-3">
-                        <a href="#" className="text-[16px]">
+                        <a href="/blog/123" className="text-[16px]">
                           <i className="fas fa-edit"></i>
                           
                         </a>
