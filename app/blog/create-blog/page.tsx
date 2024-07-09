@@ -14,6 +14,7 @@ export default function CreateBlog() {
   const [blogTitle, setBlogTitle] = useState("");
   const [blogAuthor, setBlogAuthor] = useState("");
   const [blogBody, setBlogBody] = useState("");
+  const [blogIsActive, setBlogIsActive] = useState("");
 
   const createBlog = useCallback(async (event: React.FormEvent) => {
 
@@ -64,7 +65,7 @@ export default function CreateBlog() {
       </div>
 
         <div className="max-w-4xl mx-auto p-6 border border-gray-500 rounded-md h-full mt-[10%]">
-          <BlogCreateUpdateComp  title_value={blogTitle} author_value={blogAuthor} body_value={blogBody} onsubmit={createBlog} setTitle={setBlogTitle} setAuthor={setBlogAuthor} setBody={setBlogBody} />
+          <BlogCreateUpdateComp is_active={blogIsActive} setIsActive={setBlogIsActive}  title_value={blogTitle} author_value={blogAuthor} body_value={blogBody} onsubmit={createBlog} setTitle={setBlogTitle} setAuthor={setBlogAuthor} setBody={setBlogBody} />
         </div>
 
       

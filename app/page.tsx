@@ -104,24 +104,31 @@ export default function Home() {
             <div className="shadow-sm  my-8 w-full">
               <table className="table-auto z-10 border-collapse text-sm w-full blog-table">
                 <thead>
-                  <th className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Blog Title</th>
-                  <th className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Author</th>
-                  <th className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Published In</th>
-                  <th className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Action</th>
+
+                  <tr>
+                    <th className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Blog Title</th>
+                    <th className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Author</th>
+                    <th className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Published In</th>
+                    <th className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Status</th>
+                    <th className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Action</th>
+                  </tr>
+                  
                 
                 </thead>
                 <tbody className="bg-white dark:bg-slate-800">
+
                   <tr>
                     <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> How growing up effects our duties of life.</td>
                     <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> Blog Author Name</td>
                     <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> 31 July, 2024</td>
+                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> Active</td>
                     <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
 
                       <div className="flex gap-3">
-                        <a href="#" className="text-[16px]">
+                        <Link key={'blog' + 120} href="/blog/123" className="text-[16px]">
                           <i className="fas fa-edit"></i>
                           
-                        </a>
+                        </Link>
 
                         <a href="#" className="text-[16px]">
                           
@@ -132,154 +139,7 @@ export default function Home() {
                       
                     </td>
                   </tr>
-                  <tr>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> How growing up effects our duties of life.</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> Blog Author Name</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> 31 July, 2024</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
 
-                      <div className="flex gap-3">
-                        <a href="/blog/123" className="text-[16px]">
-                          <i className="fas fa-edit"></i>
-                          
-                        </a>
-
-                        <a href="#" className="text-[16px]">
-                          
-                          <i className="fas fa-trash text-orange-300"></i>
-                        </a>
-                      </div>
-                     
-                      
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> How growing up effects our duties of life.</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> Blog Author Name</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> 31 July, 2024</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-
-                      <div className="flex gap-3">
-                        <a href="#" className="text-[16px]">
-                          <i className="fas fa-edit"></i>
-                          
-                        </a>
-
-                        <a href="#" className="text-[16px]">
-                          
-                          <i className="fas fa-trash text-orange-300"></i>
-                        </a>
-                      </div>
-                     
-                      
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> How growing up effects our duties of life.</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> Blog Author Name</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> 31 July, 2024</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-
-                      <div className="flex gap-3">
-                        <a href="#" className="text-[16px]">
-                          <i className="fas fa-edit"></i>
-                          
-                        </a>
-
-                        <a href="#" className="text-[16px]">
-                          
-                          <i className="fas fa-trash text-orange-300"></i>
-                        </a>
-                      </div>
-                     
-                      
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> How growing up effects our duties of life.</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> Blog Author Name</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> 31 July, 2024</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-
-                      <div className="flex gap-3">
-                        <a href="#" className="text-[16px]">
-                          <i className="fas fa-edit"></i>
-                          
-                        </a>
-
-                        <a href="#" className="text-[16px]">
-                          
-                          <i className="fas fa-trash text-orange-300"></i>
-                        </a>
-                      </div>
-                     
-                      
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> How growing up effects our duties of life.</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> Blog Author Name</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> 31 July, 2024</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-
-                      <div className="flex gap-3">
-                        <a href="#" className="text-[16px]">
-                          <i className="fas fa-edit"></i>
-                          
-                        </a>
-
-                        <a href="#" className="text-[16px]">
-                          
-                          <i className="fas fa-trash text-orange-300"></i>
-                        </a>
-                      </div>
-                     
-                      
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> How growing up effects our duties of life.</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> Blog Author Name</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> 31 July, 2024</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-
-                      <div className="flex gap-3">
-                        <a href="#" className="text-[16px]">
-                          <i className="fas fa-edit"></i>
-                          
-                        </a>
-
-                        <a href="#" className="text-[16px]">
-                          
-                          <i className="fas fa-trash text-orange-300"></i>
-                        </a>
-                      </div>
-                     
-                      
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> How growing up effects our duties of life.</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> Blog Author Name</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> 31 July, 2024</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-
-                      <div className="flex gap-3">
-                        <a href="#" className="text-[16px]">
-                          <i className="fas fa-edit"></i>
-                          
-                        </a>
-
-                        <a href="#" className="text-[16px]">
-                          
-                          <i className="fas fa-trash text-orange-300"></i>
-                        </a>
-                      </div>
-                     
-                      
-                    </td>
-                  </tr>
-     
                 </tbody>
               </table>
             </div>

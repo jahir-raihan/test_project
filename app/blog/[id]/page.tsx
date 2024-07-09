@@ -21,6 +21,7 @@ const UpdateBlog = (props: Props) => {
   const [blogTitle, setBlogTitle] = useState("");
   const [blogAuthor, setBlogAuthor] = useState("");
   const [blogBody, setBlogBody] = useState("");
+  const [blogIsActive, setBlogIsActive] = useState("");
 
   const [blogData, setBlogData] = useState<Blog | null>(null);
 
@@ -97,7 +98,7 @@ const UpdateBlog = (props: Props) => {
       </div>
 
         <div className="max-w-4xl mx-auto p-6 border border-gray-500 rounded-md h-full mt-[10%]">
-          <BlogCreateUpdateComp  title_value={blogTitle} author_value={blogAuthor} body_value={blogBody} onsubmit={updateBlog} setTitle={setBlogTitle} setAuthor={setBlogAuthor} setBody={setBlogBody} />
+          <BlogCreateUpdateComp is_active={blogIsActive} setIsActive={setBlogIsActive} title_value={blogTitle} author_value={blogAuthor} body_value={blogBody} onsubmit={updateBlog} setTitle={setBlogTitle} setAuthor={setBlogAuthor} setBody={setBlogBody} />
         </div>
 
       
