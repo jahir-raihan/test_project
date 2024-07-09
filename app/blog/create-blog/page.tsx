@@ -1,33 +1,28 @@
 'use client';
 
-import Image from "next/image";
-import SearchComp from "@/app/components/SearchComp";
-import ButtonComp from "@/app/components/ButtonComp";
-import FilterSelectComp from "@/app/components/FilterSelectComp";
 import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import BlogCreateUpdateComp from "../components/BlogCreateUpdateFormComp";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function CreateBlog() {
 
-  const [blogTitle, setBlogTitle] = useState("");
-  const [blogAuthor, setBlogAuthor] = useState("");
-  const [blogBody, setBlogBody] = useState("");
-  const [blogIsActive, setBlogIsActive] = useState("");
+  const router = useRouter();
 
-  const createBlog = useCallback(async (event: React.FormEvent) => {
+  const createBlog = (title: string, author: string, body: string, is_active: boolean) => {
 
-    event.preventDefault();
     const formData = new FormData();
 
-    formData.append('blog_title', blogTitle)
-    formData.append('author', blogAuthor)
-    formData.append('blog_body', blogBody)
+    formData.append('blog_title', title)
+    formData.append('author', author)
+    formData.append('blog_body', body)
+    formData.append('is_active', `${is_active}`)
 
     try {
-      const response = await axios.post(
-        process.env.BACKEND_BASE_URL +  '/blog-create', 
+      const response = axios.post(
+        process.env.NEXT_PUBLIC_BASE_URL +  '/create-blog', 
         formData,
         {
           headers: {
@@ -35,16 +30,20 @@ export default function CreateBlog() {
           }
         }
       );
-  
+        
+      toast.success("Blog created successfully!")
+      router.push('/')
       
     } catch (error) {
      
       throw new Error("Failed to update blog!");
     }
-  }, []);
+  };
 
   return (
     <>
+
+    <Toaster position="top-right" reverseOrder={false} />
     <main className="min-h-screen w-[90%] m-auto mt-[100px]">
       <div className="z-40 w-full  items-center justify-between font-mono text-sm lg:flex">
         <Link href="/" className="fixed gap-2 items-center left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
@@ -65,7 +64,7 @@ export default function CreateBlog() {
       </div>
 
         <div className="max-w-4xl mx-auto p-6 border border-gray-500 rounded-md h-full mt-[10%]">
-          <BlogCreateUpdateComp is_active={blogIsActive} setIsActive={setBlogIsActive}  title_value={blogTitle} author_value={blogAuthor} body_value={blogBody} onsubmit={createBlog} setTitle={setBlogTitle} setAuthor={setBlogAuthor} setBody={setBlogBody} />
+          <BlogCreateUpdateComp button_name="Create" icon_class="fas fa-plus" is_active={false}  title_value="" author_value="" body_value="" onsubmit={createBlog} />
         </div>
 
       

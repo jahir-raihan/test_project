@@ -1,11 +1,25 @@
-'use client';
+"use client";
+
+import React, { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
+import axios from "axios";
 
 import Image from "next/image";
 import SearchComp from "@/app/components/SearchComp";
 import ButtonComp from "@/app/components/ButtonComp";
 import FilterSelectComp from "@/app/components/FilterSelectComp";
-import React, { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
+import { deleteBlog } from "./api/delete";
+import toast, { Toaster } from "react-hot-toast";
+
+type Blog = {
+  blog_title: string,
+  author: string,
+  blog_body: string,
+  id: number,
+  created_at: string,
+  is_active: boolean
+}
+
 
 export default function Home() {
 
@@ -14,9 +28,11 @@ export default function Home() {
   const [filters, setFilters] = useState<{ [key: string]: string }>({});
   const [queryParam, setQueryParam] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [blogsList, setBlogsList] = useState<Blog[]>([]);
 
   // Handle search query using this function
   const handleSearch = (searchValue: string) => {
+    
     setSearchQuery(searchValue);
   };
 
@@ -29,7 +45,7 @@ export default function Home() {
   };
 
   // Filter data by applying filters and search query
-  const applyFilters = () => {
+  const  applyFilters = () => {
     const filterParams = Object.entries(filters)
       .map(
         ([key, value]) =>
@@ -44,11 +60,47 @@ export default function Home() {
       .filter(Boolean)
       .join("&");
 
-    const updatedQueryParam = `${combinedParams}`;
+    const updatedQueryParam = `?${combinedParams}`;
     setQueryParam(updatedQueryParam);
 
+    getBlogs(updatedQueryParam);
+
     // Call api and update data
+
+   
   }
+
+  const handleDeleteBlog = async (blog_id: number) => {
+    
+    const response = await deleteBlog(blog_id);
+    console.log("response", response)
+    if (response == "Deleted") {
+      toast.success("Blog deleted successfully");
+      await getBlogs(queryParam);
+    }
+  };
+
+  const getBlogs = useCallback(async (param:string) => {
+    
+    try {
+      
+      const response = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL +  '/get-blogs' + param, 
+        
+      );
+      
+      setBlogsList(response.data)
+  
+    } catch (error) {
+     
+      throw new Error("Failed to update blog!");
+    }
+  }, []);
+
+  useEffect(() => {
+    getBlogs('');
+    
+  }, [getBlogs]);
 
   return (
     <>
@@ -72,7 +124,7 @@ export default function Home() {
       </div>
 
       <div className="w-full mt-[5em] flex items-center gap-4  flex-wrap">
-        <SearchComp handleSearch={handleSearch} placeholder="Search by blog title, title autor . . ." />
+        <SearchComp handleSearch={handleSearch} onEnter={applyFilters} placeholder="Search by blog title, title autor . . ." />
         <FilterSelectComp
           label="Is Active"
           field_name="is_active"
@@ -117,28 +169,32 @@ export default function Home() {
                 </thead>
                 <tbody className="bg-white dark:bg-slate-800">
 
-                  <tr>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> How growing up effects our duties of life.</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> Blog Author Name</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> 31 July, 2024</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"> Active</td>
-                    <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-
-                      <div className="flex gap-3">
-                        <Link key={'blog' + 120} href="/blog/123" className="text-[16px]">
-                          <i className="fas fa-edit"></i>
-                          
-                        </Link>
-
-                        <a href="#" className="text-[16px]">
-                          
-                          <i className="fas fa-trash text-orange-300"></i>
-                        </a>
-                      </div>
-                     
-                      
-                    </td>
-                  </tr>
+                  {blogsList.map((blog) => (
+                    <tr key={blog.id}>
+                      <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                        {blog.blog_title}
+                      </td>
+                      <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                        {blog.author}
+                      </td>
+                      <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                        {new Date(blog.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                      </td>
+                      <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                        {blog.is_active ? "Active": "Inactive"}
+                      </td>
+                      <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                        <div className="flex gap-3">
+                          <Link key={`blog${blog.id}`} href={`/blog/${blog.id}`} className="text-[16px]">
+                            <i className="fas fa-edit"></i>
+                          </Link>
+                          <div className="text-[16px]">
+                            <i onClick={ () => handleDeleteBlog(blog.id)} className="fas fa-trash text-orange-300"></i>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
 
                 </tbody>
               </table>

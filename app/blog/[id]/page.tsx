@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import axios, { AxiosResponse } from "axios";
 import BlogCreateUpdateComp from "../components/BlogCreateUpdateFormComp";
-
+import toast, { Toaster } from "react-hot-toast";
 
 type Props = {
   params: { id: number };
@@ -13,7 +13,8 @@ type Props = {
 type Blog = {
   blog_title: string,
   author: string,
-  blog_body: string
+  blog_body: string,
+  is_active: boolean,
 }
 
 const UpdateBlog = (props: Props) => {
@@ -21,7 +22,7 @@ const UpdateBlog = (props: Props) => {
   const [blogTitle, setBlogTitle] = useState("");
   const [blogAuthor, setBlogAuthor] = useState("");
   const [blogBody, setBlogBody] = useState("");
-  const [blogIsActive, setBlogIsActive] = useState("");
+  const [blogIsActive, setBlogIsActive] = useState<boolean>(true);
 
   const [blogData, setBlogData] = useState<Blog | null>(null);
 
@@ -29,12 +30,16 @@ const UpdateBlog = (props: Props) => {
   const fetchBlog = useCallback(async () => {
     
     try {
-      const response = await axios.get( process.env.BACKEND_BASE_URL +  '/blog-update');
+      const response = await axios.get( process.env.NEXT_PUBLIC_BASE_URL +  '/get-blogs?is_single_blog=true&blog_id='+props.params.id);
   
       setBlogData(response.data);
+      console.log(blogData)
+
       setBlogTitle(response.data.blog_title)
       setBlogAuthor(response.data.author)
       setBlogBody(response.data.blog_body)
+      setBlogIsActive(response.data.is_active)
+
     } catch (error) {
       
       throw new Error("Failed to fetch blog!");
@@ -42,18 +47,18 @@ const UpdateBlog = (props: Props) => {
   }, [props.params.id]);
 
   // Update blog
-  const updateBlog = useCallback(async (event: React.FormEvent) => {
+  const updateBlog = async (title: string, author: string, body: string, is_active: boolean) => {
 
-    event.preventDefault();
     const formData = new FormData();
 
-    formData.append('blog_title', blogTitle)
-    formData.append('author', blogAuthor)
-    formData.append('blog_body', blogBody)
+    formData.append('blog_title', title)
+    formData.append('author', author)
+    formData.append('blog_body', body)
+    formData.append('is_active', `${is_active}`)
 
     try {
       const response = await axios.post(
-        process.env.BACKEND_BASE_URL +  '/blog-update', 
+        process.env.NEXT_PUBLIC_BASE_URL +  '/update-blog/'+props.params.id, 
         formData,
         {
           headers: {
@@ -61,13 +66,14 @@ const UpdateBlog = (props: Props) => {
           }
         }
       );
-  
-      setBlogData(response.data)
+
+      toast.success("Blog updated successfully!")
+     
     } catch (error) {
      
       throw new Error("Failed to update blog!");
     }
-  }, [props.params.id]);
+  };
 
 
   useEffect(() => {
@@ -78,6 +84,7 @@ const UpdateBlog = (props: Props) => {
 
   return (
     <>
+    <Toaster position="top-right" reverseOrder={false} />
     <main className="min-h-screen w-[90%] m-auto mt-[100px]">
       <div className="z-40 w-full  items-center justify-between font-mono text-sm lg:flex">
         <Link href="/" className="fixed gap-2 items-center left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
@@ -98,7 +105,13 @@ const UpdateBlog = (props: Props) => {
       </div>
 
         <div className="max-w-4xl mx-auto p-6 border border-gray-500 rounded-md h-full mt-[10%]">
-          <BlogCreateUpdateComp is_active={blogIsActive} setIsActive={setBlogIsActive} title_value={blogTitle} author_value={blogAuthor} body_value={blogBody} onsubmit={updateBlog} setTitle={setBlogTitle} setAuthor={setBlogAuthor} setBody={setBlogBody} />
+
+          {blogData ? (
+
+            <BlogCreateUpdateComp button_name="Update" icon_class="fas fa-pen" is_active={blogIsActive}  title_value={blogTitle} author_value={blogAuthor} body_value={blogBody} onsubmit={updateBlog} />
+          ): "Loading . . ."}
+        
+        
         </div>
 
       

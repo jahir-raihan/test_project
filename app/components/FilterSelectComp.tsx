@@ -35,7 +35,7 @@ const FilterSelectComp: React.FC<FilterComponentProps> = ({
         className="h-[55px] px-4 w-[200px] sm:w-full outline-none  appearance-none  rounded-xl border border-gray-300 dark:border-neutral-800 bg-transparent"
         
       >
-        <option value="" disabled selected>
+        <option value="" disabled>
           Select an option
         </option>
         {values && values.length > 0 ? (
